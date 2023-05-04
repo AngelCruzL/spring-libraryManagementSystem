@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html
+  lang="en"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  xmlns:th="http://www.thymeleaf.org"
+>
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -16,13 +20,27 @@
 
 <body>
 <div class="container my-2">
-  <h1>Library Management System</h1>
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>Library Management System</h1>
+
+    <div class="d-flex gap-3 align-items-center">
+      <p style="margin: 0">
+        Hello <b sec:authentication="principal.username"></b>
+      </p>
+
+      <a class="btn btn-primary" href="/logout">Logout</a>
+    </div>
+  </div>
 
   <div class="card">
     <div class="card-body">
       <div class="container my-5" th:switch="${books}">
         <p class="my-5">
-          <a class="btn btn-success" href="/edit">
+          <a
+            class="btn btn-success"
+            href="/edit"
+            sec:authorize="hasAnyRole('ADMIN', 'PUBLISHER')"
+          >
             <i class="fas fa-solid fa-plus"> Add Book </i>
           </a>
         </p>
@@ -36,8 +54,12 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th sec:authorize="hasAnyRole('ADMIN', 'PUBLISHER')">
+                  Edit
+                </th>
+                <th sec:authorize="hasRole('ADMIN')">
+                  Delete
+                </th>
               </tr>
               </thead>
 
@@ -46,15 +68,19 @@
                 <td th:text="${book.name}"></td>
                 <td th:text="${book.description}"></td>
                 <td th:text="${book.price}"></td>
-                <td>
-                  <a class="btn btn-warning"
-                     th:href="@{/edit/{id}(id=${book.id})}">
+                <td sec:authorize="hasAnyRole('ADMIN', 'PUBLISHER')">
+                  <a
+                    class="btn btn-warning"
+                    th:href="@{/edit/{id}(id=${book.id})}"
+                  >
                     <i class="fas fa-solid fa-edit"></i>
                   </a>
                 </td>
-                <td>
-                  <a class="btn btn-danger"
-                     th:href="@{/delete/{id}(id=${book.id})}">
+                <td sec:authorize="hasRole('ADMIN')">
+                  <a
+                    class="btn btn-danger"
+                    th:href="@{/delete/{id}(id=${book.id})}"
+                  >
                     <i class="fas fa-solid fa-trash"></i>
                   </a>
                 </td>
