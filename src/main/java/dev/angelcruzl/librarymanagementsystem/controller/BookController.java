@@ -15,7 +15,6 @@ import java.util.Optional;
 
 @Controller
 public class BookController {
-
   @Autowired
   private BookService bookService;
 
