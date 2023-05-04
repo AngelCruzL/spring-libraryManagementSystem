@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>All Books</title>
+
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+        integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
+        referrerpolicy="no-referrer" rel="stylesheet"/>
+
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        referrerpolicy="no-referrer" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <form
+        action="#"
+        method="POST"
+        th:action="@{/addBook}"
+        th:object="${book}"
+      >
+        <div class="row">
+          <div class="form-group col-md-8">
+            <label class="col-form-label" for="name">Name</label>
+            <input
+              class="form-control"
+              id="name"
+              placeholder="Book Name"
+              th:field="*{name}"
+              type="text"
+            />
+          </div>
+
+          <div class="form-group col-md-8">
+            <label class="col-form-label" for="description">Description</label>
+            <input
+              class="form-control"
+              id="description"
+              placeholder="Description"
+              th:field="*{description}"
+              type="text"/>
+          </div>
+
+          <div class="form-group col-md-8">
+            <label class="col-form-label" for="price">Price</label>
+            <input
+              class="form-control"
+              id="price"
+              placeholder="Price"
+              th:field="*{price}"
+              type="number"/>
+          </div>
+
+          <div class="col-md-6 mt-2">
+            <input class="btn btn-primary" type="submit" value=" Submit "/>
+          </div>
+
+          <input id="id" th:field="*{id}" type="hidden"/>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
