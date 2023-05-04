@@ -28,7 +28,7 @@ public class BookRestController {
     if (insertedBook == null) {
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    return new ResponseEntity<>(insertedBook.getId(), HttpStatus.OK);
+    return new ResponseEntity<>(insertedBook.getId(), HttpStatus.CREATED);
   }
 
   @PutMapping("/update")
@@ -40,6 +40,6 @@ public class BookRestController {
   @DeleteMapping("/delete/{id}")
   public ResponseEntity deleteBook(@PathVariable("id") Long id) {
     bookService.deleteBook(id);
-    return new ResponseEntity<>(HttpStatus.OK);
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 }
